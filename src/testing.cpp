@@ -96,9 +96,153 @@ void testEquality() {
 }
 
 
+void testMovePlayerByDiff() {
+  Board<ushort> f(7, 5);
+  Board<ushort> g(7, 5);
+  f.loadFromString(
+    "#######"
+    "#  @  #"
+    "#  $  #"
+    "#     #"
+    "#######"
+  );
+  
+  assert(f.movePlayerByDiff(1, 0));
+  g.loadFromString(
+    "#######"
+    "#     #"
+    "#  @  #"
+    "#  $  #"
+    "#######"
+  );
+
+  assert(f.isEqual(g));
+
+  f.loadFromString(
+    "#######"
+    "#     #"
+    "#  $@ #"
+    "#     #"
+    "#######"
+  );
+  
+  assert(    f.movePlayerByDiff(0, -1));
+  assert(    f.movePlayerByDiff(0, -1));
+  assert(not f.movePlayerByDiff(0, -1));
+
+  g.loadFromString(
+    "#######"
+    "#     #"
+    "#$@   #"
+    "#     #"
+    "#######"
+  );
+
+  assert(f.isEqual(g));
+  // have error: #$* +$#, expected: #$* + #, difference is symbol '$' => we have error when we put block on board
+  // fixed by: adding 4th branch to if (next_pos_char == FLOOR_CHAR) { ... }
+  f.loadFromString(
+    "#######"
+    "#     #"
+    "#$.$+ #"
+    "#     #"
+    "#######"
+  );
+  
+  assert(f.movePlayerByDiff(0, -1));
+  assert(f.movePlayerByDiff(0, +1));
+
+  g.loadFromString(
+    "#######"
+    "#     #"
+    "#$* + #"
+    "#     #"
+    "#######"
+  );
+
+  assert(f.isEqual(g));
+
+  f.loadFromString(
+    "#######"
+    "#.... #"
+    "#   . #"
+    "#   + #"
+    "#######"
+  );
+  
+  assert(    f.movePlayerByDiff(-1, 0));
+  assert(    f.movePlayerByDiff(-1, 0));
+  assert(not f.movePlayerByDiff(-1, 0));
+  assert(f.movePlayerByDiff(0, +1));
+
+  g.loadFromString(
+    "#######"
+    "#....@#"
+    "#   . #"
+    "#   . #"
+    "#######"
+  );
+  
+  assert(f.isEqual(g));
+
+  assert(    f.movePlayerByDiff(0, -1));
+  assert(    f.movePlayerByDiff(0, -1));
+  assert(    f.movePlayerByDiff(0, -1));
+  assert(    f.movePlayerByDiff(0, -1));
+  assert(not f.movePlayerByDiff(0, -1));
+
+  g.loadFromString(
+    "#######"
+    "#+... #"
+    "#   . #"
+    "#   . #"
+    "#######"
+  );
+
+  assert(f.isEqual(g));
+
+  f.loadFromString(
+    "#######"
+    "#     #"
+    "# *.* #"
+    "# $ + #"
+    "#######"
+  );
+
+  assert(f.movePlayerByDiff(-1, 0));
+
+  g.loadFromString(
+    "#######"
+    "#   $ #"
+    "# *.+ #"
+    "# $ . #"
+    "#######"
+  );
+
+  assert(f.movePlayerByDiff(0, -1));
+  assert(f.movePlayerByDiff(0, -1));
+  assert(not f.movePlayerByDiff(0, -1));
+  assert(f.movePlayerByDiff(0, +1));
+  assert(f.movePlayerByDiff(+1, 0));
+  assert(not f.movePlayerByDiff(+1, 0));
+  assert(f.movePlayerByDiff(0, -1));
+  assert(not f.movePlayerByDiff(0, -1));
+
+  g.loadFromString(
+    "#######"
+    "#   $ #"
+    "#$... #"
+    "#$@ . #"
+    "#######"
+  );
+
+  assert(f.isEqual(g));
+}
+
 void test() {
   testLoadFromString();
   testLoadPlayer();
   testCanMove();
   testEquality();
+  testMovePlayerByDiff();
 }
