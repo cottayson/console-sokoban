@@ -239,10 +239,39 @@ void testMovePlayerByDiff() {
   assert(f.isEqual(g));
 }
 
+void testCountObjects() {
+  Board<ushort> f(8, 8);
+  f.loadFromString(
+    "  ####  "
+    "  #..#  "
+    " ## .## "
+    " #  $.# "
+    "## $  ##"
+    "#  #$$ #"
+    "#  @   #"
+    "########"
+  );
+
+  assert(f.countObjects(f.BLOCK_CHAR) == 4);
+  assert(f.countObjects(f.GOAL_CHAR) == 4);
+  assert(f.countObjects(f.WALL_CHAR) == 29);
+  assert(not f.isWin());
+}
+
+void testLoadLevels() {
+  // Board<ushort> levelBoard = loadLevelFromString(3, 3, "###|###|###");
+  // cout << levelBoard.toString();
+
+  // Board<ushort> levelBoard = loadLevelFromString(7, 3, " ### |#   #|#######");
+  // cout << levelBoard.toString();
+}
+
 void test() {
   testLoadFromString();
   testLoadPlayer();
   testCanMove();
   testEquality();
   testMovePlayerByDiff();
+  testCountObjects();
+  testLoadLevels();
 }

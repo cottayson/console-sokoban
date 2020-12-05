@@ -1,9 +1,20 @@
 #ifndef BOARD_H
 #define BOARD_H
 #include <vector>
+#include <tuple>
 #include <string>
 
 typedef unsigned short ushort;
+
+namespace CHARS {
+  const char PLAYER         = '@';
+  const char PLAYER_ON_GOAL = '+';
+  const char BLOCK          = '$';
+  const char BLOCK_ON_GOAL  = '*';
+  const char FLOOR          = ' ';
+  const char WALL           = '#';
+  const char GOAL           = '.';
+}
 
 template<typename TCell>
 class Board {
@@ -23,7 +34,7 @@ class Board {
     ushort player_i = -1, player_j = -1;
     ushort width, height;
     Board(ushort w, ushort h) : width(w), height(h) {
-      cells.resize(w * h, 0);
+      cells.resize(w * h, FLOOR_CHAR);
     }
 
     static char cellToChar(TCell cell) {
@@ -44,9 +55,9 @@ class Board {
       return width * (unsigned) row + (unsigned) column;
     }
 
-    // static tuple<ushort, ushort> fromIndex(ushort width, unsigned i) {
-    //   return tuple(i / width, i % width);
-    // }
+    static std::tuple<ushort, ushort> fromIndex(ushort width, unsigned i) {
+      return std::make_tuple(i / width, i % width);
+    }
 
     TCell getCell(ushort row, ushort column) {
       return cells[toIndex(width, row, column)];
@@ -59,12 +70,13 @@ class Board {
     void loadFromString(std::string s) {
       // Load cells
       unsigned i = 0;
-      for (auto ch : s) {
-        if (not (ch == '\n' || ch == '\t' || ch == '\r')) {
+      for (char ch : s) {
+        if (not (ch == '\n' or ch == '\t' or ch == '\r')) {
           if (ch == PLAYER_CHAR or ch == PLAYER_ON_GOAL_CHAR) {
             // Load player position
-            player_i = i / width; // i == index of row
-            player_j = i % width; // j == index of column
+            std::tie (player_i, player_j) = fromIndex(width, i);
+            // player_i = i / width; // i == index of row
+            // player_j = i % width; // j == index of column
           }
           cells[i++] = (ushort)ch;
         }
@@ -85,12 +97,12 @@ class Board {
 
     static bool isFreeCell(TCell cell) {
       char c = cellToChar(cell);
-      return c == ' ' or c == '.'; // '$' '*' '.' '+' '@' '#' ' '
+      return c == FLOOR_CHAR or c == GOAL_CHAR; // '$' '*' '.' '+' '@' '#' ' '
     }
 
     bool isMovableCell(TCell cell) {
       char c = cellToChar(cell);
-      return c == '$' or c == '*';
+      return c == BLOCK_CHAR or c == BLOCK_ON_GOAL_CHAR;
     }
 
     bool canMoveObjectByDiff(ushort i, ushort j, ushort di, ushort dj) {
@@ -123,16 +135,16 @@ class Board {
       char current_pos_char = cellToChar(getCell(i, j));
       char next_pos_char = cellToChar(getCell(next_i, next_j));
       // set next position
-      if (next_pos_char == ' ') {
-        setCell(next_i, next_j, (TCell)'$');
+      if (next_pos_char == FLOOR_CHAR) { // ' '
+        setCell(next_i, next_j, (TCell)BLOCK_CHAR); // '$'
       } else { // next_pos_char == '.'
-        setCell(next_i, next_j, (TCell)'*');
+        setCell(next_i, next_j, (TCell)BLOCK_ON_GOAL_CHAR); // '*'
       }
       // set current position
-      if (current_pos_char == '$') {
-        setCell(i, j, (TCell)' ');
+      if (current_pos_char == BLOCK_CHAR) { // '$'
+        setCell(i, j, (TCell)FLOOR_CHAR); // ' '
       } else { // current_pos_char == '*'
-        setCell(i, j, (TCell)'.');
+        setCell(i, j, (TCell)GOAL_CHAR); // '.'
       }
     }
 
@@ -189,6 +201,22 @@ class Board {
       // #  $ #    #  $ #    #  $ #
       // ######    ######    ######
       return false;
+    }
+
+    unsigned countObjects(char objectType) {
+      unsigned counter = 0;
+      for (unsigned i = 0; i < cells.size(); ++i) {
+        auto cell = cells[i];
+        char c = cellToChar(cell);
+        if (c == objectType) {
+          counter++;
+        }
+      }
+      return counter;
+    }
+
+    bool isWin() {
+      return countObjects(BLOCK_CHAR) == 0;
     }
 };
 

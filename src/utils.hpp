@@ -3,6 +3,8 @@
 #include <vector>
 #include <iostream>
 
+bool g_wide = true;
+
 template<typename T>
 void showVector(std::vector<T>& v) {
   for (auto elem : v) {

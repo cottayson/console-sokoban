@@ -21,6 +21,50 @@ v.back(); // return last element
 v.pop_back(); // remove last element and return void
 v.clear(); // removes all elements from the vector
 ```
+## Deque
+```cpp
+  deque<short> q;
+  q.push_back(1);
+  q.push_back(2);
+  q.push_back(3);
+  cout << q.size() << endl;
+  deque<short>::iterator it = q.begin(); // q.end() == q.begin() + q.size()
+  q.insert(it, 100); // <=> q.insert(it, amount=1, value=100); , it += amount
+  // 100 1 2 3
+  for (short elem : q) {
+    cout << elem << " ";
+  } cout << endl;
+  it--;
+  q.insert(it, 5, 3);
+  // 3 3 3 3 3 100 1 2 3
+   for (deque<short>::iterator it = q.begin(); it != q.end(); ++it) {
+    cout << *it << " ";
+  } cout << endl;
+```
+
+## Tuple
+```cpp
+  std::tuple<int, char> foo(100, 'h');
+  std::cout << std::get<0>(foo); << std::endl; // 100
+  std::cout << std::get<1>(foo); << std::endl; // h
+  auto bar = std::make_tuple("test", 3.1, 14, 'y');
+  std::get<2>(bar); // 14
+  int ivalue; char cvalue;
+  std::tie(ivalue, cvalue) = foo; // ivalue = 100, cvalue = 'h'
+```
+
+## String
+```cpp
+  // concat two strings
+  string s1 = "hello";
+  string s2 = " world";
+  string s3 = "!!!";
+  cout << s1 + s2 << endl; // hello world
+  s1.insert(s1.size(), s2);
+  cout << s1 << endl;      // hello world
+  s1.insert(s1.end(), 3, (char)'.');
+  cout << s1 << endl;      // hello world...
+```
 
 # Multi-Cursor Editing in Visual Studio Code
 ## Basic selections
