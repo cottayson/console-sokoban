@@ -1,5 +1,7 @@
 #include <cassert>
 #include "board.hpp"
+#include "load_levels.hpp"
+#include <iostream>
 // #include "testing.hpp"
 
 void testLoadFromString() {
@@ -258,12 +260,12 @@ void testCountObjects() {
   assert(not f.isWin());
 }
 
-void testLoadLevels() {
-  // Board<ushort> levelBoard = loadLevelFromString(3, 3, "###|###|###");
-  // cout << levelBoard.toString();
+void testLoadLevelFromLine() {
+  Board<ushort> levelBoard = loadLevelFromLine(3, 3, "###|###|###");
+  assert(levelBoard.toString() == "###\n###\n###\n");
 
-  // Board<ushort> levelBoard = loadLevelFromString(7, 3, " ### |#   #|#######");
-  // cout << levelBoard.toString();
+  levelBoard = loadLevelFromLine(7, 3, " ### |#   #|#######");
+  assert(levelBoard.toString() == " ###   \n#   #  \n#######\n");
 }
 
 void test() {
@@ -273,5 +275,5 @@ void test() {
   testEquality();
   testMovePlayerByDiff();
   testCountObjects();
-  testLoadLevels();
+  testLoadLevelFromLine();
 }
