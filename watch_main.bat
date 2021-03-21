@@ -1,0 +1,1 @@
+build && nodemon --exec "compile_main_and_run" --ext "cpp" --watch ./src/main.cpp

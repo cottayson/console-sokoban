@@ -1,0 +1,1 @@
+@compile_main && link_all && build\main

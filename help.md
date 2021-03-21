@@ -1,3 +1,14 @@
+# Cmake
+https://stackoverflow.com/questions/43413717/compile-cmake-based-project-with-mingw
+* get list of generators
+$ cmake -G
+
+* select generator
+$ cmake -G "MinGW Makefiles"
+
+# using NMake
+...
+
 # Switch focus between editor and integrated terminal in Visual Studio Code
 https://stackoverflow.com/questions/42796887/switch-focus-between-editor-and-integrated-terminal-in-visual-studio-code
 
@@ -9,10 +20,10 @@ CMD-SHIFT-P -> Preferences: Open Keyboard Shortcuts File and add these entries:
 ```
 # Integers
 ```cpp
-short // -37767..32767
-signed char // -127..127
-unsigned short // 0..65356
-unsigned char // 0..255
+signed char // -127..127      (1 byte)
+unsigned char // 0..2^8 - 1   (1 byte)
+short // -37767..32767        (2 bytes)
+unsigned short // 0..2^16 - 1 (2 bytes)
 ```
 
 # Vector<T> API
@@ -27,19 +38,21 @@ v.clear(); // removes all elements from the vector
   q.push_back(1);
   q.push_back(2);
   q.push_back(3);
-  cout << q.size() << endl;
+  cout << q.size() << endl; // 3
   deque<short>::iterator it = q.begin(); // q.end() == q.begin() + q.size()
   q.insert(it, 100); // <=> q.insert(it, amount=1, value=100); , it += amount
   // 100 1 2 3
   for (short elem : q) {
     cout << elem << " ";
-  } cout << endl;
+  }
+  cout << endl;
   it--;
   q.insert(it, 5, 3);
   // 3 3 3 3 3 100 1 2 3
-   for (deque<short>::iterator it = q.begin(); it != q.end(); ++it) {
+  for (deque<short>::iterator it = q.begin(); it != q.end(); ++it) {
     cout << *it << " ";
-  } cout << endl;
+  } 
+  cout << endl;
 ```
 
 ## Tuple

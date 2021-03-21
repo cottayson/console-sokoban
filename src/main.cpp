@@ -12,11 +12,43 @@
 #include "verifier.hpp"
 #include "load_levels.hpp"
 
-int main() {
+int main(int argc, char* argv[]) {
   test();
-  auto levels = loadLevels("levels.txt");
+  // for (int i = 0; i < argc; i++) {
+  //   std::cout << argv[i] << std::endl;  
+  // }
+  std::string fileName;
+  unsigned levelId = 0;
+  unsigned arguments = argc - 1;
+  if (arguments == 0) {
+    std::cout << "no arguments provided."  << std::endl;
+    return 0;
+  } else if (arguments == 1) {
+    fileName = argv[1];
+  } else {
+    fileName = argv[1];
+    levelId = std::atoi(argv[2]);
+  }
 
-  gameLoop(levels[10]);
+  std::cout << "fileName = " << fileName << std::endl;
+  std::cout << "levelId = " << levelId << std::endl;
+
+  auto levels = loadLevels(fileName);
+  
+  
+  if(levelId < levels.size()) {
+    gameLoop(levels[levelId]);
+  } else {
+    std::cout << "levelId too big, levels.size() = " << levels.size() << std::endl;
+  }
+  
+  
+
+  // levels[3].movePlayerByDiff(1, 0);
+  // levels[3].movePlayerByDiff(0, 1);
+  // std::cout << levels[3].toString() << std::endl;
+
+  // gameLoop(levels[3]);
   
   /* blocks ordered from left to right, up to down like letters
   "  ####  "

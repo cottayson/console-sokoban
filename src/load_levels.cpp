@@ -66,8 +66,10 @@ std::vector<Board<ushort>> loadLevels(const std::string& filename) {
   unsigned levelId = 0;
   unsigned levelHeight = 0;
   unsigned maxWidth = 0;
-  // std::ifstream levels_file(filename);
-  std::ifstream levels_file("levels.txt");
+  std::ifstream levels_file(filename);
+  if(!levels_file) {
+    std::cout << filename << " not found." << std::endl;
+  }
   // levels_file.open("levels.txt");
   std::string line = "";
   if (levels_file.is_open()) {
@@ -102,6 +104,15 @@ std::vector<Board<ushort>> loadLevels(const std::string& filename) {
         continue;
       } else if (isEndOfLevels(line)) {
         std::cout << "detected end of levels" << std::endl;
+        // load last level
+        if (levelId > 0) {
+          Board<ushort> level = loadLevelFromLine(maxWidth, levelHeight, currentLevelString);
+          if (not verifier.checkBlocksAndGoals(level)) {
+            std::cout << "Error in level #" << levelId << std::endl;
+            return listOfLevels;
+          }
+          listOfLevels.push_back(level);
+        }
         break;
       } else if (countCharacter(line, CHARS::WALL) >= 2) { 
         // --------- just use prop of levels #5 from ideas.md
@@ -118,6 +129,17 @@ std::vector<Board<ushort>> loadLevels(const std::string& filename) {
         currentLevelString.push_back('|');
       }
       // std::cout << line << std::endl;
+    }
+    if(currentLevelString.size() > 0) {
+        // load last level
+        if (levelId > 0) {
+          Board<ushort> level = loadLevelFromLine(maxWidth, levelHeight, currentLevelString);
+          if (not verifier.checkBlocksAndGoals(level)) {
+            std::cout << "Error in level #" << levelId << std::endl;
+            return listOfLevels;
+          }
+          listOfLevels.push_back(level);
+        }
     }
     levels_file.close();
   }

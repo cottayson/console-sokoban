@@ -1,7 +1,7 @@
 # Ideas how to effectively solve level:
 ## Divide and conquer
 We know that only two ways exists for moving this block from that area:
-```cpp
+```text
 "....#2##"
 "##### # "
 "###   # "
@@ -10,13 +10,13 @@ We know that only two ways exists for moving this block from that area:
 "##   #  "
 "######  "
 ```
-Это можно обобщить:
-Перемотка до выполнения условия (while условие)
-Пример условия: ящик находится в проходе номер N (в позиции (x, y))
+This can be generalized:
+Rewind until the condition is met (while condition)
+Example condition: The block is in passage number N (at position (x, y))
 
 # Ideas how to effectively generate human-like level:
 * Given goals and wall but initial positions of blocks are unknown
-  (Like in older software for genering levels of sokoban)
+  (Like in older software for generating levels of sokoban)
 * Given blocks positions but walls are unknown
 
 # Loading levels from file

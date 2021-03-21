@@ -1,0 +1,1 @@
+@nodemon --exec "build && build\main" --ext "cpp hpp" --watch ./src

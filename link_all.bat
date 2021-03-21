@@ -1,0 +1,1 @@
+@g++ -Wall build/*.o -o build/main.exe

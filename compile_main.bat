@@ -1,0 +1,1 @@
+@g++ -Wall -c src/main.cpp -o ./build/main.o
