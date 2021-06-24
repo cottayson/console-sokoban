@@ -2,7 +2,6 @@
 #include "board.hpp"
 #include "load_levels.hpp"
 #include <iostream>
-// #include "testing.hpp"
 
 void testLoadFromString() {
   // width = 3, height = 2
@@ -276,4 +275,9 @@ void test() {
   testMovePlayerByDiff();
   testCountObjects();
   testLoadLevelFromLine();
+}
+
+int main() {
+  test();
+  return 0;
 }

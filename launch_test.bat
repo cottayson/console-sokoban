@@ -1,0 +1,1 @@
+make test && build\testing.exe

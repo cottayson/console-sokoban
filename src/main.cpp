@@ -6,17 +6,12 @@
 #include <string>
 #include <cassert>
 #include "board.hpp"
-#include "testing.hpp"
 #include "utils.hpp"
 #include "gameloop.hpp"
 #include "verifier.hpp"
 #include "load_levels.hpp"
 
 int main(int argc, char* argv[]) {
-  test();
-  // for (int i = 0; i < argc; i++) {
-  //   std::cout << argv[i] << std::endl;  
-  // }
   std::string fileName;
   unsigned levelId = 0;
   unsigned arguments = argc - 1;
