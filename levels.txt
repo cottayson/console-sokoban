@@ -1,5 +1,5 @@
 -- https://www.youtube.com/watch?v=yix2AVVUwe0
--- | nokia level 1
+-- | 0. nokia level 1
   ###   
   #.#   
   # ####
@@ -8,7 +8,7 @@
 ####$#  
    #.#  
    ###  
--- | nokia level 2
+-- | 1. nokia level 2
 #####    
 #   #    
 # $@# ###
@@ -18,7 +18,7 @@
  #   #  #
  #   ####
  #####   
--- | nokia level 3
+-- | 2. nokia level 3
  #### 
 ##  # 
 # @$# 
@@ -27,7 +27,7 @@
 #.$  #
 #..*.#
 ######
--- | nokia level 4
+-- | 3. nokia level 4
  ####   
  #@ ### 
  # $  # 
@@ -37,7 +37,7 @@
 #.   $ #
 ########
 
--- | nokia level 5
+-- | 4. nokia level 5
   ######
   #    #
 ###$$$ #
@@ -45,7 +45,7 @@
 #@$...##
 ####  # 
    #### 
--- | nokia level 6
+-- | 5. nokia level 6
   ##### 
 ###  @# 
 #  $. ##
@@ -53,7 +53,7 @@
 ### *$ #
   #   ##
   ##### 
--- | nokia level 6 (not optimal subgoal, (optimal for human logic))
+-- | 6. nokia level 6 (not optimal subgoal, (optimal for human logic))
   ##### 
 ###   # 
 # @$.$##
@@ -62,7 +62,7 @@
   #   ##
   ##### 
 
--- | nokia level 6 (optimal subgoal)
+-- | 7. nokia level 6 (optimal subgoal)
   ##### 
 ###   # 
 # @ *$##
@@ -71,7 +71,7 @@
   #   ##
   ##### 
 
--- | nokia level 7
+-- | 8. nokia level 7
   ####  
   #..#  
  ## .## 
@@ -80,7 +80,7 @@
 #  #$$ #
 #  @   #
 ########
--- | nokia level 8
+-- | 9. nokia level 8
 ########
 #  #   #
 # $..$ #
@@ -89,7 +89,7 @@
 #  #   #
 ########
 
--- | nokia level 9
+-- | 10. nokia level 9
 ######   
 #    #   
 # $$$##  
@@ -98,7 +98,7 @@
  # @    #
  ########
 
--- | nokia level 10
+-- | 11. nokia level 10
 #######
 #..$..#
 #..#..#
@@ -107,7 +107,7 @@
 # $$$ #
 #  #@ #
 #######
--- | nokia level 11
+-- | 12. nokia level 11
  #####  
  # @ ###
 ## #$  #
@@ -117,7 +117,7 @@
   #   # 
   ##### 
 
--- | nokia level 12
+-- | 13. nokia level 12
 ######
 #    #
 # $ @#
@@ -127,7 +127,7 @@
 # * # 
 # . # 
 ##### 
--- | nokia level 13
+-- | 14. nokia level 13
   #### 
   #  # 
 ###$ ##
@@ -137,7 +137,7 @@
 ###* # 
   #.## 
   ###  
--- | nokia level 14
+-- | 15. nokia level 14
 #####    
 #   #####
 # # #   #
@@ -146,7 +146,7 @@
 #.@$   # 
 #..  ### 
 ######   
--- | nokia level 15
+-- | 16. nokia level 15
  ###### 
  #    ##
 ##.##$ #
@@ -155,7 +155,7 @@
 #  @ ###
 ######  
 -- https://www.youtube.com/watch?v=uj-CAC0pMLI
--- | sokoban level 7 slowly (equal to nokia level 7)
+-- | 17. sokoban level 7 slowly (equal to nokia level 7)
   ####  
   #..#  
  ## .## 
@@ -165,7 +165,7 @@
 #  @   #
 ########
 -- https://www.youtube.com/watch?v=MHmY8-C29xQ
--- | Super Sokoban (SNES-J) STAGE 35
+-- | 18. Super Sokoban (SNES-J) STAGE 35
             #### 
 ###### #### #  # 
 #    ### @###  # 
@@ -183,7 +183,7 @@
 #  ##   #        
 #########        
 
--- | Nabo Cosmos Level 1
+-- | 19. Nabo Cosmos Level 1
  #####  
  #   ##
 ## * .##
@@ -192,7 +192,7 @@
 ## @ ###
  #####  
 
--- | Nabo Cosmos Level 2
+-- | 20. Nabo Cosmos Level 2
   ####  
 ###  ###
 #   *$ #
@@ -204,13 +204,19 @@
   # *. #
   #  ###
   ####  
-
 -- https://sokoban.info/?7_3
--- | Nabo Cosmos Level 3
-
-
+-- | 21. Nabo Cosmos Level 3
+######  
+#    #  
+# ##$###
+# . *  #
+##  * +#
+ #  $  #
+ # #*###
+ #   #  
+ #####  
 -- http://game-sokoban.com/index.php?mode=level&lid=44832
--- | Level 6.010
+-- | 22. Level 6.010
  #################### 
  #      ##     #    ##
  # ##.   # $ . #. .  #

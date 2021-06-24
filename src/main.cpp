@@ -10,6 +10,7 @@
 #include "gameloop.hpp"
 #include "verifier.hpp"
 #include "load_levels.hpp"
+#define FILE_NOT_FOUND_ERROR_CODE 1
 
 int main(int argc, char* argv[]) {
   std::string fileName;
@@ -28,8 +29,18 @@ int main(int argc, char* argv[]) {
   std::cout << "fileName = " << fileName << std::endl;
   std::cout << "levelId = " << levelId << std::endl;
 
-  auto levels = loadLevels(fileName);
-  
+  std::ifstream levels_file(fileName);
+  if(not levels_file.is_open()) {
+    std::cout << "File \"" << fileName << "\" not found. Program exited.";
+    if (fileName != "levels.txt") {
+      std::cout << " Probably you can try file \"levels.txt\".";
+    }
+    std::cout << std::endl;
+    return FILE_NOT_FOUND_ERROR_CODE;
+  }
+  // Now `levels_file.is_open() == true`
+  auto levels = loadLevels(&levels_file);
+  levels_file.close();
   
   if(levelId < levels.size()) {
     gameLoop(levels[levelId]);

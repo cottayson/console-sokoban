@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include "verifier.hpp"
+#include "load_levels.hpp"
 
 bool isCommentLine(std::string& line) {
   return line[0] == '-' and line[1] == '-';
@@ -58,90 +59,73 @@ Board<ushort> loadLevelFromLine(unsigned width, unsigned height, const std::stri
   return b;
 }
 
-std::vector<Board<ushort>> loadLevels(const std::string& filename) {
-  Verifier<ushort> verifier;
+Verifier<ushort> verifier;
+
+std::vector<Board<ushort>> loadLevels(std::ifstream *levels_file) {
   std::vector<Board<ushort>> listOfLevels;
   // bool readingLevel = false;
   std::string currentLevelString = "";
   unsigned levelId = 0;
   unsigned levelHeight = 0;
   unsigned maxWidth = 0;
-  std::ifstream levels_file(filename);
-  if(!levels_file) {
-    std::cout << filename << " not found." << std::endl;
-  }
-  // levels_file.open("levels.txt");
   std::string line = "";
-  if (levels_file.is_open()) {
-    while (getline(levels_file, line)) {
-      if (isCommentLine(line)) {
-        if (isContainsLevelName(line)) {
-          std::string levelName = getLevelNameFromLine(line);
-          if (levelId > 0) {
-            // check and add readed level to database
-            // std::cout << "LEVEL BEGIN" << std::endl;
-            // std::cout << currentLevelString << std::endl;
-            // std::cout << "LEVEL END, loaded level:" << std::endl;
-            Board<ushort> level = loadLevelFromLine(maxWidth, levelHeight, currentLevelString);
-            if (not verifier.checkBlocksAndGoals(level)) {
-              std::cout << "Error in level #" << levelId << "| " << levelName << std::endl;
-              return listOfLevels;
-            }
-            listOfLevels.push_back(level);
-            // std::cout << level.toString() << std::endl;
-            // std::cout << "maxWidth = " << maxWidth << std::endl;
-            // std::cout << "Height = " << levelHeight << std::endl;
+  while (getline(*levels_file, line)) {
+    if (isCommentLine(line)) {
+      if (isContainsLevelName(line)) {
+        if (levelId > 0) {
+          // check and add readed level to database
+          // std::cout << "LEVEL BEGIN" << std::endl;
+          // std::cout << currentLevelString << std::endl;
+          // std::cout << "LEVEL END, loaded level:" << std::endl;
+          addLevel(&listOfLevels, levelId, maxWidth, levelHeight, currentLevelString, getLevelNameFromLine(line));
+          // std::cout << level.toString() << std::endl;
+          // std::cout << "maxWidth = " << maxWidth << std::endl;
+          // std::cout << "Height = " << levelHeight << std::endl;
 
-            // reset level parameters
-            currentLevelString = "";
-            maxWidth = 0;
-            levelHeight = 0;
-          }
-          levelId++;
-          // std::cout << "levelId = " << levelId << std::endl;
-          // readingLevel = true;
+          // reset level parameters
+          currentLevelString = "";
+          maxWidth = 0;
+          levelHeight = 0;
         }
-        continue;
-      } else if (isEndOfLevels(line)) {
-        std::cout << "detected end of levels" << std::endl;
-        // load last level
-        if (levelId > 0) {
-          Board<ushort> level = loadLevelFromLine(maxWidth, levelHeight, currentLevelString);
-          if (not verifier.checkBlocksAndGoals(level)) {
-            std::cout << "Error in level #" << levelId << std::endl;
-            return listOfLevels;
-          }
-          listOfLevels.push_back(level);
-        }
-        break;
-      } else if (countCharacter(line, CHARS::WALL) >= 2) { 
-        // --------- just use prop of levels #5 from ideas.md
-        // reading part of level
-        // "  ## ###    "
-        //  012345678
-        trimRightWhileChar(line, CHARS::WALL);
-        if (maxWidth < line.size()) {
-          maxWidth = line.size();
-        }
-        currentLevelString += line;
-        levelHeight++;
-        
-        currentLevelString.push_back('|');
+        levelId++;
+        // std::cout << "levelId = " << levelId << std::endl;
+        // readingLevel = true;
       }
-      // std::cout << line << std::endl;
+      continue;
+    } else if (isEndOfLevels(line)) {
+      std::cout << "detected end of levels" << std::endl;
+      // load last level
+      if (levelId > 0) {
+        addLevel(&listOfLevels, levelId, maxWidth, levelHeight, currentLevelString, getLevelNameFromLine(line));
+      }
+      break;
+    } else if (countCharacter(line, CHARS::WALL) >= 2) { 
+      // --------- just use prop of levels #5 from ideas.md
+      // reading part of level
+      // "  ## ###    "
+      //  012345678
+      trimRightWhileChar(line, CHARS::WALL);
+      if (maxWidth < line.size()) {
+        maxWidth = line.size();
+      }
+      currentLevelString += line;
+      levelHeight++;
+      
+      currentLevelString.push_back('|');
     }
-    if(currentLevelString.size() > 0) {
-        // load last level
-        if (levelId > 0) {
-          Board<ushort> level = loadLevelFromLine(maxWidth, levelHeight, currentLevelString);
-          if (not verifier.checkBlocksAndGoals(level)) {
-            std::cout << "Error in level #" << levelId << std::endl;
-            return listOfLevels;
-          }
-          listOfLevels.push_back(level);
-        }
-    }
-    levels_file.close();
+    // std::cout << line << std::endl;
   }
   return listOfLevels;
+}
+
+void addLevel(std::vector<Board<ushort>> *listOfLevels, int levelId, unsigned maxWidth, unsigned levelHeight, std::string currentLevelString, std::string levelName)
+{
+  Board<ushort> level = loadLevelFromLine(maxWidth, levelHeight, currentLevelString);
+  if (verifier.checkBlocksAndGoals(level)) {
+    listOfLevels -> push_back(level);
+  } else {
+    std::cout << "Error \"Number of blocks(" << CHARS::BLOCK << " or " << CHARS::BLOCK_ON_GOAL <<
+           ") not equal to number of goals(" << CHARS::GOAL << " or " << CHARS::PLAYER_ON_GOAL <<
+           ")\" in level #" << levelId << "| " << levelName << std::endl;
+  }
 }

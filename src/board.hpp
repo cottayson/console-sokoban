@@ -83,6 +83,7 @@ class Board {
       }
     }
 
+    /// For showing board in console
     std::string toString(bool wide = false) {
       std::string s = "";
       for (unsigned i = 0; i < height; ++i) {
