@@ -2,6 +2,10 @@
 ```
 build && build\main levels.txt 3
 ```
+or
+```
+make && build\main levels.txt 3
+```
 
 # Load levels
 ```

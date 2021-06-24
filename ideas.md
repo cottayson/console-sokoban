@@ -71,3 +71,17 @@ Example condition: The block is in passage number N (at position (x, y))
 * model states and actions:
   * verify state basically
   * verify state assiming that it created from another already verified state by sequence of actions
+
+## State colors
+`U` - utility function, `U(position)` corresponds to optimality of current position, `good` or `bad`
+* Red state1 - wrong branch -> no way to complete level
+* Orange state1 - U(s) <= U(state1), where s in set_of_neighbors(state1)
+* Yellow state:
+  1. Yellow state1 - exists such state s: U(s) > U(state1), where s in set_of_neighbors(state1)
+  or another more simple variant
+  2. Yellow state1 - exists some yellow neighbour state
+* Green state1 - exists some green neighbour state
+
+### Colored interface + modes
+* In free mode: User can mark states with colors and this helps to memorize some bad states. 
+* In strict proof mode: User must prove that some branches are have red color.
