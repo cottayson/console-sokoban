@@ -85,3 +85,34 @@ Example condition: The block is in passage number N (at position (x, y))
 ### Colored interface + modes
 * In free mode: User can mark states with colors and this helps to memorize some bad states. 
 * In strict proof mode: User must prove that some branches are have red color.
+
+# TODO
+```cpp
+  levels[3].movePlayerByDiff(1, 0);
+  levels[3].movePlayerByDiff(0, 1);
+  std::cout << levels[3].toString() << std::endl;
+
+  gameLoop(levels[3]);
+  
+   blocks ordered from left to right, up to down like letters
+  "  ####  "
+  "  #++#  "
+  " ##@+## "
+  " #@@1.# "
+  "##@2  ##"
+  "#@@#34@#"
+  "#@@@@@@#"
+  "########"; @ - indicates player position class (if cost of move = 0)
+  numberOfDistinctPushes = {
+    block 1: [R, D]  -- 2
+    block 2: [R]     -- 1
+    block 3: [U]     -- 1
+    block 4: [U]     -- 1
+  } => all_possible_pushes.size() == 5
+  
+
+  // TODO: calculate number of possible pushes in current player position class
+  // number of pushes in this start position = 
+
+  gameLoop(f, startString);
+```

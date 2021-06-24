@@ -45,38 +45,7 @@ int main(int argc, char* argv[]) {
   if(levelId < levels.size()) {
     gameLoop(levels[levelId]);
   } else {
-    std::cout << "levelId too big, levels.size() = " << levels.size() << std::endl;
+    std::cout << "levelId too big, levels.size() = " << levels.size() << ". Program exited." << std::endl;
   }
-  
-  
-
-  // levels[3].movePlayerByDiff(1, 0);
-  // levels[3].movePlayerByDiff(0, 1);
-  // std::cout << levels[3].toString() << std::endl;
-
-  // gameLoop(levels[3]);
-  
-  /* blocks ordered from left to right, up to down like letters
-  "  ####  "
-  "  #++#  "
-  " ##@+## "
-  " #@@1.# "
-  "##@2  ##"
-  "#@@#34@#"
-  "#@@@@@@#"
-  "########"; @ - indicates player position class (if cost of move = 0)
-  numberOfDistinctPushes = {
-    block 1: [R, D]  -- 2
-    block 2: [R]     -- 1
-    block 3: [U]     -- 1
-    block 4: [U]     -- 1
-  } => all_possible_pushes.size() == 5
-  */
-
-  // TODO: calculate number of possible pushes in current player position class
-  // number of pushes in this start position = 
-
-  // gameLoop(f, startString);
-  
   return 0;
 }
